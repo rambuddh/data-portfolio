@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karthik Buddhavarapu - Data Architecture Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text-light: #eee;
+            --text-dim: #94a3b8;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 4rem 0 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, var(--highlight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .certifications {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .cert-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .cert-badge:hover {
+            background: rgba(233, 69, 96, 0.1);
+            border-color: var(--highlight);
+            transform: translateY(-2px);
+        }
+
+        /* Projects Grid */
+        .projects-section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 0.8s ease-out 0.6s both;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.8s; }
+        .project-card:nth-child(2) { animation-delay: 1s; }
+        .project-card:nth-child(3) { animation-delay: 1.2s; }
+        .project-card:nth-child(4) { animation-delay: 1.4s; }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--highlight), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(233, 69, 96, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .project-number {
+            font-size: 0.9rem;
+            color: var(--highlight);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #fff;
+        }
+
+        .project-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-description {
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .project-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--success);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-top: 0.25rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .tech-tag {
+            background: rgba(15, 52, 96, 0.3);
+            color: #64b5f6;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(100, 181, 246, 0.2);
+        }
+
+        .impact-highlights {
+            background: rgba(16, 185, 129, 0.05);
+            border-left: 3px solid var(--success);
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .impact-highlights strong {
+            color: var(--success);
+        }
+
+        /* Summary Stats */
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+            animation: fadeIn 0.8s ease-out 1.6s both;
+        }
+
+        .summary-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .summary-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .summary-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--highlight), #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .summary-label {
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 4rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .contact-btn {
+            padding: 1rem 2rem;
+            background: rgba(233, 69, 96, 0.1);
+            border: 2px solid var(--highlight);
+            color: var(--highlight);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background: var(--highlight);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content h1 { font-size: 2.5rem; }
+            .tagline { font-size: 1.2rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-stats { grid-template-columns: 1fr; }
+            .summary-number { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Karthik Buddhavarapu</h1>
+                <p class="tagline">Senior Data Engineer II | 12+ Years Experience | Leading Data Platform Architecture at MBC Group</p>
+                <div class="certifications">
+                    <div class="cert-badge">🏆 Databricks Certified Data Engineer Professional</div>
+                    <div class="cert-badge">🤖 Databricks Certified Generative AI Associate</div>
+                    <div class="cert-badge">✅ Databricks Certified Data Engineer Associate</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="projects-section">
+            <h2 class="section-title">Featured Architecture Projects</h2>
+            
+            <div style="max-width: 900px; margin: 0 auto 3rem; text-align: center; padding: 2rem; background: rgba(233, 69, 96, 0.05); border-radius: 15px; border: 1px solid rgba(233, 69, 96, 0.2);">
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-light);">
+                    <strong style="color: var(--highlight);">Senior Data Engineer II at MBC Group</strong> with full ownership 
+                    of data platform architecture and end-to-end delivery. These projects showcase my work 
+                    <strong style="color: var(--highlight);">leading lakehouse transformation, GenAI innovation, and 
+                    platform optimization</strong> — demonstrating capabilities for <strong style="color: var(--highlight);">
+                    Principal Engineer, Staff Engineer, and Solutions Architect</strong> roles.
+                </p>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-number">Project 01</div>
+                    <h3 class="project-title">Lakehouse Migration & Unity Catalog</h3>
+                    <p class="project-subtitle">AWS Glue/Redshift → Databricks Transformation</p>
+                    <p class="project-description">
+                        <strong>Led end-to-end migration</strong> of MBC Group's data platform from legacy AWS Glue/Redshift 
+                        to Databricks Lakehouse. Managed 800+ table migrations and 200+ workflow transitions to Unity Catalog, 
+                        establishing enterprise governance framework with full architecture ownership of the platform evolution.
+                    </p>
+                    
+                    <div class="project-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">800+</span>
+                            <span class="stat-label">Tables Migrated</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">200+</span>
+                            <span class="stat-label">Workflows Transitioned</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">4 Hours</span>
+                            <span class="stat-label">Runtime Reduction</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">25%+</span>
+                            <span class="stat-label">Cost Savings</span>
+                        </div>
+                    </div>
+
+                    <div class="impact-highlights">
+                        <strong>Technical Achievement:</strong> Refactored legacy ETL into high-performance Power BI semantic 
+                        layer, leveraging Liquid Clustering, Auto-Optimize, and Predictive I/O to optimize query latency 
+                        for high-concurrency workloads.
+                    </div>
+
+                    <div class="tech-stack">
+                        <span class="tech-tag">Unity Catalog</span>
+                        <span class="tech-tag">Delta Lake</span>
+                        <span class="tech-tag">Liquid Clustering</span>
+                        <span class="tech-tag">Photon Engine</span>
+                        <span class="tech-tag">AWS Glue</span>
+                        <span class="tech-tag">Redshift</span>
+                        <span class="tech-tag">Power BI</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-number">Project 02</div>
+                    <h3 class="project-title">GenAI Metadata Governance Utility</h3>
+                    <p class="project-subtitle">Automated Schema Detection & PII Management</p>
+                    <p class="project-description">
+                        <strong>Developed custom Python metadata utility</strong> using Databricks GenAI (GPT) to automate 
+                        schema change detection and PII classification. Reduced manual governance effort by 70% while maintaining 
+                        100% reliability for MBC Group's primary KPIs and content metadata module.
+                    </p>
+                    
+                    <div class="project-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">70%</span>
+                            <span class="stat-label">Manual Effort ↓</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">100%</span>
+                            <span class="stat-label">KPI Reliability</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">Auto</span>
+                            <span class="stat-label">PII Detection</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">Real-time</span>
+                            <span class="stat-label">Schema Updates</span>
+                        </div>
+                    </div>
+
+                    <div class="impact-highlights">
+                        <strong>Innovation Impact:</strong> First-of-its-kind GenAI integration at MBC Group, demonstrating 
+                        ability to rapidly adopt cutting-edge AI technologies and translate them into practical automation 
+                        that solves real governance challenges.
+                    </div>
+
+                    <div class="tech-stack">
+                        <span class="tech-tag">Databricks GenAI</span>
+                        <span class="tech-tag">GPT Integration</span>
+                        <span class="tech-tag">Python SDK</span>
+                        <span class="tech-tag">Unity Catalog API</span>
+                        <span class="tech-tag">PII Detection</span>
+                        <span class="tech-tag">Metadata Automation</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-number">Project 03</div>
+                    <h3 class="project-title">Platform Performance & Cost Optimization</h3>
+                    <p class="project-subtitle">Advanced Databricks Tuning & Cluster Optimization</p>
+                    <p class="project-description">
+                        <strong>Led platform-wide performance optimization</strong> leveraging advanced Databricks features 
+                        including Liquid Clustering, Auto-Optimize, and Predictive I/O. Reduced query latency for high-concurrency 
+                        workloads while lowering monthly compute costs through strategic cluster tuning and Photon engine adoption.
+                    </p>
+                    
+                    <div class="project-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">4 Hours</span>
+                            <span class="stat-label">Daily Runtime Saved</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">25%</span>
+                            <span class="stat-label">Cost Reduction</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">3x</span>
+                            <span class="stat-label">Query Performance</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">100%</span>
+                            <span class="stat-label">Photon Coverage</span>
+                        </div>
+                    </div>
+
+                    <div class="impact-highlights">
+                        <strong>Technical Excellence:</strong> Refactored legacy migration systems into high-performance 
+                        semantic layer, optimizing storage layout and I/O patterns to support MBC's growing analytics demands 
+                        while maintaining cost efficiency.
+                    </div>
+
+                    <div class="tech-stack">
+                        <span class="tech-tag">Liquid Clustering</span>
+                        <span class="tech-tag">Auto-Optimize</span>
+                        <span class="tech-tag">Predictive I/O</span>
+                        <span class="tech-tag">Photon Engine</span>
+                        <span class="tech-tag">Cluster Tuning</span>
+                        <span class="tech-tag">Delta Lake</span>
+                        <span class="tech-tag">Power BI</span>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <div class="project-number">Project 04</div>
+                    <h3 class="project-title">Real-Time Streaming Architecture</h3>
+                    <p class="project-subtitle">Kafka + Spark for Credit & Fraud Detection (DEEM Finance)</p>
+                    <p class="project-description">
+                        <strong>Architected high-throughput streaming pipelines</strong> as founding data engineer at DEEM Finance. 
+                        Built near real-time data infrastructure using Kafka and Spark for credit-lending and fraud detection, 
+                        delivering optimized Data Marts with 100% self-service reporting and 99%+ reliability.
+                    </p>
+                    
+                    <div class="project-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">99%+</span>
+                            <span class="stat-label">Pipeline Reliability</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">100%</span>
+                            <span class="stat-label">Self-Service BI</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">Real-time</span>
+                            <span class="stat-label">Fraud Insights</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">Founding</span>
+                            <span class="stat-label">Team Member</span>
+                        </div>
+                    </div>
+
+                    <div class="impact-highlights">
+                        <strong>Startup Impact:</strong> As founding data engineer, built DEEM's entire big data infrastructure 
+                        from scratch, establishing governance framework for regulatory FinTech compliance and enabling immediate 
+                        insights for business-critical lending decisions.
+                    </div>
+
+                    <div class="tech-stack">
+                        <span class="tech-tag">Apache Kafka</span>
+                        <span class="tech-tag">Spark Streaming</span>
+                        <span class="tech-tag">Data Marts</span>
+                        <span class="tech-tag">AWS Cloud</span>
+                        <span class="tech-tag">Fraud Detection</span>
+                        <span class="tech-tag">Credit Lending</span>
+                        <span class="tech-tag">FinTech Compliance</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-stats">
+                <div class="summary-card">
+                    <div class="summary-number">4+ Years</div>
+                    <div class="summary-label">Leading Platform Architecture at MBC</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-number">800+</div>
+                    <div class="summary-label">Tables Migrated to Unity Catalog</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-number">3x</div>
+                    <div class="summary-label">Databricks Certifications</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-number">70%</div>
+                    <div class="summary-label">Governance Automation via GenAI</div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <h3 style="margin-bottom: 1rem;">Senior Data Engineer II → Principal/Staff Engineer</h3>
+            <p style="color: var(--text-dim); margin-bottom: 2rem;">
+                12+ years progression from Hadoop/MapReduce to cutting-edge Databricks + GenAI | 
+                Full architecture ownership of MBC Group's lakehouse transformation | 
+                Triple certified with proven delivery of enterprise-scale platforms
+            </p>
+            <div class="contact-links">
+                <a href="#" class="contact-btn">📧 Email</a>
+                <a href="#" class="contact-btn">💼 LinkedIn</a>
+                <a href="#" class="contact-btn">💻 GitHub</a>
+            </div>
+            <p style="color: var(--text-dim); margin-top: 2rem; font-size: 0.9rem;">
+                © 2026 Karthik Buddhavarapu | Dubai, UAE
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
