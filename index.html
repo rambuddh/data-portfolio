@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karthik Buddhavarapu - Data Architecture Portfolio</title>
+    <title>Karthik Buddhavarapu - Data Engineering Portfolio</title>
     <style>
         * {
             margin: 0;
@@ -12,77 +12,192 @@
         }
 
         :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --accent: #0f3460;
-            --highlight: #e94560;
-            --text-light: #eee;
-            --text-dim: #94a3b8;
-            --success: #10b981;
+            --matrix-green: #00ff41;
+            --matrix-dark: #0d0208;
+            --matrix-bg: #001a00;
+            --matrix-light: #39ff14;
+            --text-glow: #00ff41;
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: var(--text-light);
+            font-family: 'Courier New', monospace;
+            background: var(--matrix-dark);
+            color: var(--matrix-green);
             line-height: 1.6;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Matrix Rain Background */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Glitch Text Effect */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .glitch {
+            animation: glitch 0.3s infinite;
         }
 
         /* Header */
         header {
             padding: 4rem 0 2rem;
             text-align: center;
-            position: relative;
+            border-bottom: 2px solid var(--matrix-green);
+            margin-bottom: 3rem;
         }
 
         .header-content h1 {
             font-size: 3.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #fff 0%, var(--highlight) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--matrix-light);
+            text-shadow: 0 0 10px var(--text-glow), 0 0 20px var(--text-glow);
             margin-bottom: 0.5rem;
-            animation: fadeInDown 0.8s ease-out;
+            letter-spacing: 3px;
         }
 
         .tagline {
-            font-size: 1.5rem;
-            color: var(--text-dim);
+            font-size: 1.3rem;
+            color: var(--matrix-green);
             margin-bottom: 1rem;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
+            text-shadow: 0 0 5px var(--text-glow);
         }
 
+        .terminal-prompt {
+            color: var(--matrix-light);
+            font-size: 1rem;
+            margin: 1rem 0;
+        }
+
+        .typing::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Certification Badges */
         .certifications {
             display: flex;
             justify-content: center;
             gap: 1.5rem;
             flex-wrap: wrap;
             margin-top: 2rem;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
         .cert-badge {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid var(--matrix-green);
             padding: 0.75rem 1.5rem;
-            border-radius: 50px;
+            border-radius: 5px;
             font-size: 0.9rem;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
             transition: all 0.3s ease;
         }
 
         .cert-badge:hover {
-            background: rgba(233, 69, 96, 0.1);
-            border-color: var(--highlight);
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
             transform: translateY(-2px);
+        }
+
+        /* Skills Chart Section */
+        .skills-section {
+            padding: 3rem 0;
+            margin: 3rem 0;
+            border-top: 2px solid var(--matrix-green);
+            border-bottom: 2px solid var(--matrix-green);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--matrix-light);
+            text-shadow: 0 0 10px var(--text-glow);
+            letter-spacing: 2px;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .skill-category {
+            background: rgba(0, 26, 0, 0.8);
+            border: 2px solid var(--matrix-green);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .skill-category h3 {
+            color: var(--matrix-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            text-shadow: 0 0 5px var(--text-glow);
+        }
+
+        .skill-bar {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .skill-level {
+            background: rgba(0, 255, 65, 0.1);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--matrix-green);
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--matrix-green), var(--matrix-light));
+            box-shadow: 0 0 10px var(--text-glow);
+            transition: width 2s ease-out;
+            width: 0;
+        }
+
+        .skill-progress.animate {
+            animation: skillLoad 2s ease-out forwards;
+        }
+
+        @keyframes skillLoad {
+            from { width: 0; }
         }
 
         /* Projects Grid */
@@ -90,63 +205,49 @@
             padding: 3rem 0;
         }
 
-        .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            animation: fadeIn 0.8s ease-out 0.6s both;
-        }
-
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
             gap: 2.5rem;
             margin-bottom: 4rem;
         }
 
         .project-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            background: rgba(0, 26, 0, 0.9);
+            border: 2px solid var(--matrix-green);
+            border-radius: 10px;
             padding: 2.5rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            animation: fadeInUp 0.8s ease-out both;
         }
-
-        .project-card:nth-child(1) { animation-delay: 0.8s; }
-        .project-card:nth-child(2) { animation-delay: 1s; }
-        .project-card:nth-child(3) { animation-delay: 1.2s; }
-        .project-card:nth-child(4) { animation-delay: 1.4s; }
 
         .project-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: -2px;
+            left: -2px;
+            right: -2px;
             height: 4px;
-            background: linear-gradient(90deg, var(--highlight), var(--accent));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
+            background: linear-gradient(90deg, transparent, var(--matrix-light), transparent);
+            animation: scan 3s linear infinite;
         }
 
-        .project-card:hover::before {
-            transform: scaleX(1);
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .project-card:hover {
             transform: translateY(-8px);
-            border-color: rgba(233, 69, 96, 0.3);
-            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 50px rgba(0, 255, 65, 0.4);
+            border-color: var(--matrix-light);
         }
 
         .project-number {
             font-size: 0.9rem;
-            color: var(--highlight);
+            color: var(--matrix-light);
             font-weight: 600;
             margin-bottom: 0.5rem;
             text-transform: uppercase;
@@ -157,17 +258,19 @@
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 0.75rem;
-            color: #fff;
+            color: var(--matrix-light);
+            text-shadow: 0 0 5px var(--text-glow);
         }
 
         .project-subtitle {
             font-size: 1.1rem;
-            color: var(--text-dim);
+            color: var(--matrix-green);
             margin-bottom: 1.5rem;
+            opacity: 0.9;
         }
 
         .project-description {
-            color: var(--text-dim);
+            color: var(--matrix-green);
             margin-bottom: 1.5rem;
             line-height: 1.7;
         }
@@ -180,22 +283,23 @@
         }
 
         .stat-item {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 255, 65, 0.05);
             padding: 1rem;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            border: 1px solid var(--matrix-green);
         }
 
         .stat-value {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--success);
+            color: var(--matrix-light);
             display: block;
+            text-shadow: 0 0 5px var(--text-glow);
         }
 
         .stat-label {
             font-size: 0.85rem;
-            color: var(--text-dim);
+            color: var(--matrix-green);
             margin-top: 0.25rem;
         }
 
@@ -207,24 +311,31 @@
         }
 
         .tech-tag {
-            background: rgba(15, 52, 96, 0.3);
-            color: #64b5f6;
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--matrix-green);
             padding: 0.4rem 0.9rem;
-            border-radius: 20px;
+            border-radius: 3px;
             font-size: 0.85rem;
-            border: 1px solid rgba(100, 181, 246, 0.2);
+            border: 1px solid var(--matrix-green);
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
         }
 
         .impact-highlights {
-            background: rgba(16, 185, 129, 0.05);
-            border-left: 3px solid var(--success);
+            background: rgba(0, 255, 65, 0.05);
+            border-left: 3px solid var(--matrix-light);
             padding: 1rem 1.25rem;
             margin: 1.5rem 0;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 5px 5px 0;
         }
 
         .impact-highlights strong {
-            color: var(--success);
+            color: var(--matrix-light);
+            text-shadow: 0 0 3px var(--text-glow);
         }
 
         /* Summary Stats */
@@ -233,35 +344,34 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin: 4rem 0;
-            animation: fadeIn 0.8s ease-out 1.6s both;
         }
 
         .summary-card {
             text-align: center;
             padding: 2rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 26, 0, 0.8);
+            border-radius: 10px;
+            border: 2px solid var(--matrix-green);
             transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
         }
 
         .summary-card:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(0, 26, 0, 1);
             transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
         }
 
         .summary-number {
             font-size: 3rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--highlight), #ff6b9d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--matrix-light);
+            text-shadow: 0 0 10px var(--text-glow);
         }
 
         .summary-label {
             font-size: 1rem;
-            color: var(--text-dim);
+            color: var(--matrix-green);
             margin-top: 0.5rem;
         }
 
@@ -269,8 +379,13 @@
         footer {
             text-align: center;
             padding: 3rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px solid var(--matrix-green);
             margin-top: 4rem;
+        }
+
+        footer h3 {
+            color: var(--matrix-light);
+            text-shadow: 0 0 10px var(--text-glow);
         }
 
         .contact-links {
@@ -282,48 +397,21 @@
 
         .contact-btn {
             padding: 1rem 2rem;
-            background: rgba(233, 69, 96, 0.1);
-            border: 2px solid var(--highlight);
-            color: var(--highlight);
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid var(--matrix-green);
+            color: var(--matrix-green);
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 5px;
             font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
         }
 
         .contact-btn:hover {
-            background: var(--highlight);
-            color: white;
+            background: rgba(0, 255, 65, 0.2);
+            color: var(--matrix-light);
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
-        }
-
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
         }
 
         /* Responsive */
@@ -334,45 +422,222 @@
             .project-stats { grid-template-columns: 1fr; }
             .summary-number { font-size: 2.5rem; }
         }
+
+        /* Loading animation */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
+    <!-- Matrix Rain Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
     <div class="container">
-        <header>
+        <header class="fade-in">
             <div class="header-content">
-                <h1>Karthik Buddhavarapu</h1>
-                <p class="tagline">Senior Data Engineer II | 12+ Years Experience | Leading Data Platform Architecture at MBC Group</p>
+                <div class="terminal-prompt">> system_init --user karthik_buddhavarapu</div>
+                <h1>KARTHIK BUDDHAVARAPU</h1>
+                <p class="tagline typing">Senior Data Engineer II | 12+ Years | Platform Architecture Specialist</p>
+                <div class="terminal-prompt">> databricks.certifications --level professional</div>
                 <div class="certifications">
-                    <div class="cert-badge">🏆 Databricks Certified Data Engineer Professional</div>
-                    <div class="cert-badge">🤖 Databricks Certified Generative AI Associate</div>
-                    <div class="cert-badge">✅ Databricks Certified Data Engineer Associate</div>
+                    <div class="cert-badge">🏆 Databricks Data Engineer Professional</div>
+                    <div class="cert-badge">🤖 Databricks Generative AI Associate</div>
+                    <div class="cert-badge">✅ Databricks Data Engineer Associate</div>
                 </div>
             </div>
         </header>
 
-        <section class="projects-section">
-            <h2 class="section-title">Featured Architecture Projects</h2>
+        <!-- Skills Section -->
+        <section class="skills-section fade-in">
+            <h2 class="section-title">> technical_skills.display()</h2>
             
-            <div style="max-width: 900px; margin: 0 auto 3rem; text-align: center; padding: 2rem; background: rgba(233, 69, 96, 0.05); border-radius: 15px; border: 1px solid rgba(233, 69, 96, 0.2);">
-                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-light);">
-                    <strong style="color: var(--highlight);">Senior Data Engineer II at MBC Group</strong> with full ownership 
-                    of data platform architecture and end-to-end delivery. These projects showcase my work 
-                    <strong style="color: var(--highlight);">leading lakehouse transformation, GenAI innovation, and 
-                    platform optimization</strong> — demonstrating capabilities for <strong style="color: var(--highlight);">
-                    Principal Engineer, Staff Engineer, and Solutions Architect</strong> roles.
-                </p>
+            <div class="skills-container">
+                <!-- Data Platform Skills -->
+                <div class="skill-category">
+                    <h3>▸ Data Platform</h3>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Databricks & Unity Catalog</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Apache Spark (PySpark/Scala)</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Delta Lake & Lakehouse</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Kafka & Streaming</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cloud & DevOps -->
+                <div class="skill-category">
+                    <h3>▸ Cloud & DevOps</h3>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>AWS (S3, EMR, Glue, Lambda)</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Azure (ADF, ADLS Gen2)</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Terraform & IaC</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>CI/CD (GitLab, Jenkins)</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Programming -->
+                <div class="skill-category">
+                    <h3>▸ Programming</h3>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Python (Advanced)</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>SQL (Spark SQL, Hive)</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Scala</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Shell Scripting (Bash)</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI & Advanced -->
+                <div class="skill-category">
+                    <h3>▸ AI & Advanced</h3>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>GenAI (GPT Integration)</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>MLflow & Feature Store</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Data Governance & Lineage</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-name">
+                            <span>Performance Optimization</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects-section">
+            <h2 class="section-title">> projects.load_portfolio()</h2>
             
             <div class="projects-grid">
                 <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-number">Project 01</div>
+                <div class="project-card fade-in">
+                    <div class="project-number">[PROJECT 01]</div>
                     <h3 class="project-title">Lakehouse Migration & Unity Catalog</h3>
                     <p class="project-subtitle">AWS Glue/Redshift → Databricks Transformation</p>
                     <p class="project-description">
-                        <strong>Led end-to-end migration</strong> of MBC Group's data platform from legacy AWS Glue/Redshift 
+                        <strong>Led end-to-end migration</strong> of enterprise data platform from legacy AWS infrastructure 
                         to Databricks Lakehouse. Managed 800+ table migrations and 200+ workflow transitions to Unity Catalog, 
-                        establishing enterprise governance framework with full architecture ownership of the platform evolution.
+                        establishing comprehensive governance framework with full architecture ownership.
                     </p>
                     
                     <div class="project-stats">
@@ -389,15 +654,14 @@
                             <span class="stat-label">Runtime Reduction</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-value">25%+</span>
+                            <span class="stat-value">25%</span>
                             <span class="stat-label">Cost Savings</span>
                         </div>
                     </div>
 
                     <div class="impact-highlights">
-                        <strong>Technical Achievement:</strong> Refactored legacy ETL into high-performance Power BI semantic 
-                        layer, leveraging Liquid Clustering, Auto-Optimize, and Predictive I/O to optimize query latency 
-                        for high-concurrency workloads.
+                        <strong>Technical Achievement:</strong> Refactored legacy ETL into high-performance semantic 
+                        layer, leveraging Liquid Clustering, Auto-Optimize, and Predictive I/O to optimize query latency.
                     </div>
 
                     <div class="tech-stack">
@@ -412,14 +676,14 @@
                 </div>
 
                 <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-number">Project 02</div>
+                <div class="project-card fade-in">
+                    <div class="project-number">[PROJECT 02]</div>
                     <h3 class="project-title">GenAI Metadata Governance Utility</h3>
                     <p class="project-subtitle">Automated Schema Detection & PII Management</p>
                     <p class="project-description">
                         <strong>Developed custom Python metadata utility</strong> using Databricks GenAI (GPT) to automate 
                         schema change detection and PII classification. Reduced manual governance effort by 70% while maintaining 
-                        100% reliability for MBC Group's primary KPIs and content metadata module.
+                        100% reliability for primary KPIs and content metadata module.
                     </p>
                     
                     <div class="project-stats">
@@ -442,7 +706,7 @@
                     </div>
 
                     <div class="impact-highlights">
-                        <strong>Innovation Impact:</strong> First-of-its-kind GenAI integration at MBC Group, demonstrating 
+                        <strong>Innovation Impact:</strong> First-of-its-kind GenAI integration, demonstrating 
                         ability to rapidly adopt cutting-edge AI technologies and translate them into practical automation 
                         that solves real governance challenges.
                     </div>
@@ -453,19 +717,19 @@
                         <span class="tech-tag">Python SDK</span>
                         <span class="tech-tag">Unity Catalog API</span>
                         <span class="tech-tag">PII Detection</span>
-                        <span class="tech-tag">Metadata Automation</span>
+                        <span class="tech-tag">Automation</span>
                     </div>
                 </div>
 
                 <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-number">Project 03</div>
-                    <h3 class="project-title">Platform Performance & Cost Optimization</h3>
-                    <p class="project-subtitle">Advanced Databricks Tuning & Cluster Optimization</p>
+                <div class="project-card fade-in">
+                    <div class="project-number">[PROJECT 03]</div>
+                    <h3 class="project-title">Platform Performance Optimization</h3>
+                    <p class="project-subtitle">Advanced Databricks Tuning & Cost Management</p>
                     <p class="project-description">
                         <strong>Led platform-wide performance optimization</strong> leveraging advanced Databricks features 
                         including Liquid Clustering, Auto-Optimize, and Predictive I/O. Reduced query latency for high-concurrency 
-                        workloads while lowering monthly compute costs through strategic cluster tuning and Photon engine adoption.
+                        workloads while lowering monthly compute costs through strategic cluster tuning.
                     </p>
                     
                     <div class="project-stats">
@@ -488,8 +752,8 @@
                     </div>
 
                     <div class="impact-highlights">
-                        <strong>Technical Excellence:</strong> Refactored legacy migration systems into high-performance 
-                        semantic layer, optimizing storage layout and I/O patterns to support MBC's growing analytics demands 
+                        <strong>Technical Excellence:</strong> Refactored legacy systems into high-performance 
+                        semantic layer, optimizing storage layout and I/O patterns to support growing analytics demands 
                         while maintaining cost efficiency.
                     </div>
 
@@ -500,19 +764,18 @@
                         <span class="tech-tag">Photon Engine</span>
                         <span class="tech-tag">Cluster Tuning</span>
                         <span class="tech-tag">Delta Lake</span>
-                        <span class="tech-tag">Power BI</span>
                     </div>
                 </div>
 
                 <!-- Project 4 -->
-                <div class="project-card">
-                    <div class="project-number">Project 04</div>
+                <div class="project-card fade-in">
+                    <div class="project-number">[PROJECT 04]</div>
                     <h3 class="project-title">Real-Time Streaming Architecture</h3>
-                    <p class="project-subtitle">Kafka + Spark for Credit & Fraud Detection (DEEM Finance)</p>
+                    <p class="project-subtitle">Kafka + Spark for Financial Services</p>
                     <p class="project-description">
-                        <strong>Architected high-throughput streaming pipelines</strong> as founding data engineer at DEEM Finance. 
+                        <strong>Architected high-throughput streaming pipelines</strong> as founding data engineer at FinTech startup. 
                         Built near real-time data infrastructure using Kafka and Spark for credit-lending and fraud detection, 
-                        delivering optimized Data Marts with 100% self-service reporting and 99%+ reliability.
+                        delivering optimized Data Marts with 100% self-service reporting.
                     </p>
                     
                     <div class="project-stats">
@@ -535,7 +798,7 @@
                     </div>
 
                     <div class="impact-highlights">
-                        <strong>Startup Impact:</strong> As founding data engineer, built DEEM's entire big data infrastructure 
+                        <strong>Startup Impact:</strong> As founding data engineer, built entire big data infrastructure 
                         from scratch, establishing governance framework for regulatory FinTech compliance and enabling immediate 
                         insights for business-critical lending decisions.
                     </div>
@@ -546,48 +809,162 @@
                         <span class="tech-tag">Data Marts</span>
                         <span class="tech-tag">AWS Cloud</span>
                         <span class="tech-tag">Fraud Detection</span>
-                        <span class="tech-tag">Credit Lending</span>
                         <span class="tech-tag">FinTech Compliance</span>
+                    </div>
+                </div>
+
+                <!-- Project 5 - NEW -->
+                <div class="project-card fade-in">
+                    <div class="project-number">[PROJECT 05]</div>
+                    <h3 class="project-title">Hadoop Orchestration Framework</h3>
+                    <p class="project-subtitle">Metadata-Driven Sqoop/Flume Automation</p>
+                    <p class="project-description">
+                        <strong>Engineered metadata-driven orchestration framework</strong> using Shell scripting and Oozie 
+                        for on-premise Cloudera Hadoop. Automated 300+ Sqoop and Flume jobs using centralized Hive configuration 
+                        table, eliminating manual scheduling and reducing deployment time from days to minutes.
+                    </p>
+                    
+                    <div class="project-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">300+</span>
+                            <span class="stat-label">Jobs Automated</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">90%</span>
+                            <span class="stat-label">Manual Effort ↓</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">Zero</span>
+                            <span class="stat-label">Code Duplication</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">5 mins</span>
+                            <span class="stat-label">New Job Deploy</span>
+                        </div>
+                    </div>
+
+                    <div class="impact-highlights">
+                        <strong>Framework Innovation:</strong> Centralized config table in Hive stores job metadata 
+                        (name, cron, credentials, HDFS paths, Sqoop/Flume params). Shell scripts read config and dynamically 
+                        generate Oozie workflows - adding new job = single row insert, zero code changes.
+                    </div>
+
+                    <div class="tech-stack">
+                        <span class="tech-tag">Apache Sqoop</span>
+                        <span class="tech-tag">Apache Flume</span>
+                        <span class="tech-tag">Oozie Workflows</span>
+                        <span class="tech-tag">Shell Scripting</span>
+                        <span class="tech-tag">Hive Metastore</span>
+                        <span class="tech-tag">Cloudera Hadoop</span>
+                        <span class="tech-tag">On-Prem</span>
                     </div>
                 </div>
             </div>
 
+            <!-- Summary Stats -->
             <div class="summary-stats">
                 <div class="summary-card">
-                    <div class="summary-number">4+ Years</div>
-                    <div class="summary-label">Leading Platform Architecture at MBC</div>
+                    <div class="summary-number">12+</div>
+                    <div class="summary-label">Years Experience</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-number">5</div>
+                    <div class="summary-label">Enterprise Projects</div>
                 </div>
                 <div class="summary-card">
                     <div class="summary-number">800+</div>
-                    <div class="summary-label">Tables Migrated to Unity Catalog</div>
+                    <div class="summary-label">Tables Migrated</div>
                 </div>
                 <div class="summary-card">
                     <div class="summary-number">3x</div>
-                    <div class="summary-label">Databricks Certifications</div>
-                </div>
-                <div class="summary-card">
-                    <div class="summary-number">70%</div>
-                    <div class="summary-label">Governance Automation via GenAI</div>
+                    <div class="summary-label">Databricks Certified</div>
                 </div>
             </div>
         </section>
 
         <footer>
-            <h3 style="margin-bottom: 1rem;">Senior Data Engineer II → Principal/Staff Engineer</h3>
-            <p style="color: var(--text-dim); margin-bottom: 2rem;">
-                12+ years progression from Hadoop/MapReduce to cutting-edge Databricks + GenAI | 
-                Full architecture ownership of MBC Group's lakehouse transformation | 
-                Triple certified with proven delivery of enterprise-scale platforms
+            <h3>> contact.initialize()</h3>
+            <p style="color: var(--matrix-green); margin: 1rem 0 2rem;">
+                Senior Data Engineer II → Principal/Staff Engineer<br>
+                Triple Databricks Certified | GenAI Pioneer | Platform Architecture Specialist
             </p>
-			<div class="contact-links">
-				<a href="mailto:rambuddh@gmail.com" class="contact-btn">📧 Email</a>
-				<a href="https://linkedin.com/in/karthikbuddhavarapu" class="contact-btn">💼 LinkedIn</a>
-				<a href="https://github.com/rambuddh" class="contact-btn">💻 GitHub</a>
-			</div>
-            <p style="color: var(--text-dim); margin-top: 2rem; font-size: 0.9rem;">
-                © 2026 Karthik Buddhavarapu | Dubai, UAE
+            <div class="contact-links">
+                <a href="mailto:rambuddh@gmail.com" class="contact-btn">📧 Email</a>
+                <a href="https://linkedin.com/in/karthikbuddhavarapu" class="contact-btn">💼 LinkedIn</a>
+                <a href="https://github.com/karthikbuddhavarapu" class="contact-btn">💻 GitHub</a>
+            </div>
+            <p style="color: var(--matrix-green); margin-top: 2rem; font-size: 0.9rem;">
+                © 2026 Karthik Buddhavarapu | Dubai, UAE | System Version 2.0
             </p>
         </footer>
     </div>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const alphabet = katakana + latin + nums;
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const rainDrops = [];
+        for (let x = 0; x < columns; x++) {
+            rainDrops[x] = Math.random() * canvas.height / fontSize;
+        }
+
+        const draw = () => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        };
+
+        setInterval(draw, 30);
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Animate skill bars on scroll
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('.skill-progress');
+                    progressBars.forEach(bar => {
+                        bar.classList.add('animate');
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-category').forEach(category => {
+            observer.observe(category);
+        });
+    </script>
 </body>
 </html>
